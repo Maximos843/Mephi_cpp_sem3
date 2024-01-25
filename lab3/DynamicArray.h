@@ -12,17 +12,13 @@ class DynamicArray{
     T* data;
 
 public:
-    DynamicArray(int size){
+    DynamicArray(int size) : capacity(size){
         this->data = new T[size];
     };
 
-    DynamicArray(){
-        this->data = NULL;
-        this->length = 0;
-    };
+    DynamicArray() : data(nullptr){};
 
-    DynamicArray(T* items, int count){
-        this->length = count;
+    DynamicArray(T* items, int count) : length(count){
         if (count % 10 == 0){
             capacity = 10 * (count / 10);
         }
@@ -35,8 +31,7 @@ public:
         }
     };
 
-    DynamicArray(const DynamicArray<T>& array){
-        this->length = array.GetSize();
+    DynamicArray(const DynamicArray<T>& array) : length(array.GetSize()){
         if (length % 10 == 0){
             capacity = 10 * (length / 10);
         }
@@ -50,9 +45,11 @@ public:
     };
 
     ~DynamicArray(){
-        if (data != NULL){
+        if (data != nullptr){
             delete[] data;
         }
+        capacity = 0;
+		length = 0;
     };
 
     T Get(int index){
@@ -83,6 +80,23 @@ public:
         }
     };
 
+    void Append(T item) {
+		if (length < this->capacity) {
+			this->data[this->length] = item;
+			this->length++;
+		}
+		else {
+			if (this->capacity == 10) {
+				this->Resize(10);
+			}
+			else {
+				this->Resize(this->capacity + 10);
+			}
+			this->data[this->length] = item;
+			this->length++;
+		}
+	}
+
     void Resize(int size){
         if (size % 10 == 0){
             capacity = 10 * (size / 10);
@@ -98,6 +112,39 @@ public:
         this->data = data_new;
         this->length = size;
     };
+
+    int IndexOfElem(T data){
+        int left = 0;
+        int right = this->length - 1;
+		int mid = (left + (right - left) / 2);
+		if (data == this->Get(mid)){
+			return mid;
+        }
+		else if (left == right){
+            return -1;
+        }
+		if (data < this->Get(mid)){
+			return IndexOfElem(data);
+        }
+		else{
+            return IndexOfElem(data);
+        }
+	}
+
+    bool IsEqual(T* data, int length) {
+		if (this->length != length) return false;
+
+		for (int i = 0; i < this->length; i++)
+			if (this->Get(i) != data[i]) return false;
+
+		return true;
+	}
+
+    void PrintArray() {
+		for (int i = 0; i < length; i++)
+			std::cout << this->data[i] << ' ';
+		std::cout << std::endl;
+	}
 
 };
 
