@@ -7,13 +7,6 @@
 #include "KeyValue.h"
 
 
-const std::string SIZE_LOWER_ZERO = "Size < 0";
-const std::string SIZE_ZERO = "Size = 0";
-const std::string INVALID_PARAM = "Invalid param";
-const std::string INDEX_OUT_OF_RANGE = "Index out of range";
-const std::string EMPTY_ELEMENT = "Index out of range";
-
-
 template <typename T>
 class Node {
 private:
@@ -94,8 +87,7 @@ public:
 
 	AVLTree(DynamicArray<T>& arr, int left, int right) : AVLTree(){
 		if ((left > right) || (left < 0) || (right < 0) || (right >= arr.GetSize())){
-			throw INDEX_OUT_OF_RANGE;
-			//throw IndexError(Out_of_range);
+			throw std::out_of_range(INDEX_OUT_OF_RANGE);
         }
 		this->root = new Node<T>(arr.Get(left));
 		this->length = 1;

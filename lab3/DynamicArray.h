@@ -7,90 +7,78 @@
 
 template <class T>
 class DynamicArray{
-    int capacity = 0;
+    int size = 0;
     int length = 0;
     T* data;
 
 public:
-    DynamicArray(int size) : capacity(size){
+    DynamicArray(int size) : size(size){
         this->data = new T[size];
     };
 
     DynamicArray() : data(nullptr){};
 
-    DynamicArray(T* items, int count) : length(count){
-        if (count % 10 == 0){
-            capacity = 10 * (count / 10);
-        }
-        else{
-            capacity = 10 * (count / 10 + 1);
-        }
-        this->data = new T[capacity];
+    DynamicArray(T* items, int count) : DynamicArray(count){
         for (int i = 0; i < count; ++i){
             this->data[i] = items[i];
         }
+        length = count;
     };
 
-    DynamicArray(const DynamicArray<T>& array) : length(array.GetSize()){
-        if (length % 10 == 0){
-            capacity = 10 * (length / 10);
-        }
-        else{
-            capacity = 10 * (length / 10 + 1);
-        }
-        this->data = new T[capacity];
+    DynamicArray(const DynamicArray<T>& array, int length) : DynamicArray(length){
         for (int i = 0; i < length; ++i){
             data[i] = array.Get(i);
         }
+        this->length = length;
     };
 
+    DynamicArray(const DynamicArray<T>& array) : DynamicArray(array.data, array.length) {};
+
     ~DynamicArray(){
-        if (data != nullptr){
-            delete[] data;
-        }
-        capacity = 0;
+        delete[] data;
+        size = 0;
 		length = 0;
     };
 
     T Get(int index){
         if (length == 0){
-            throw IndexError(Empty_list);
+            throw std::length_error(SIZE_LOWER_ZERO);
         }
         else if (length <= index || index < 0){
-            throw IndexError(Invalid_args);
+            throw std::out_of_range(INDEX_OUT_OF_RANGE);
         }
-        else{
-            return this->data[index];
-        }
+        return this->data[index];
     };
 
     int GetSize(){
+        return this->size;
+    };
+
+    int GetLength(){
         return this->length;
     };
 
     void Set(T value, int index){
         if (length == 0){
-            throw IndexError(Empty_list);
+            throw std::length_error(SIZE_LOWER_ZERO);
         }
         else if (length <= index || index < 0){
-            throw IndexError(Invalid_args);
+            throw std::out_of_range(INDEX_OUT_OF_RANGE);
         }
-        else{
-            this->data[index] = value;
-        }
+        this->data[index] = value;
     };
 
     void Append(T item) {
-		if (length < this->capacity) {
+		if (this->length < this->size) {
 			this->data[this->length] = item;
 			this->length++;
 		}
 		else {
-			if (this->capacity == 10) {
+			if (this->size == 0) {
 				this->Resize(10);
 			}
 			else {
-				this->Resize(this->capacity + 10);
+				this->Resize(this->size + 10);
 			}
 			this->data[this->length] = item;
 			this->length++;
@@ -98,19 +86,19 @@ public:
 	}
 
     void Resize(int size){
-        if (size % 10 == 0){
-            capacity = 10 * (size / 10);
+        if (size <= 0){
+            throw std::length_error(SIZE_LOWER_ZERO);
         }
-        else{
-            capacity = 10 * (size / 10 + 1);
-        }
-        T* data_new = new T[capacity];
-        for (int i = 0; i < std::min(length, size); ++i){
+        T* data_new = new T[size];
+        for (int i = 0; i < std::min(this->size, size); ++i){
             data_new[i] = this->data[i];
         }
         delete[] data;
         this->data = data_new;
-        this->length = size;
+        if (this->length > size){
+            this->length = size;
+        }
+        this->size = size;
     };
 
     int IndexOfElem(T data){
@@ -139,13 +127,6 @@ public:
 
 		return true;
 	}
-
-    void PrintArray() {
-		for (int i = 0; i < length; i++)
-			std::cout << this->data[i] << ' ';
-		std::cout << std::endl;
-	}
-
 };
 
 #endif

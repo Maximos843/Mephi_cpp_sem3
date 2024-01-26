@@ -4,7 +4,15 @@
 #include <string.h>
 #include <iostream>
 
-typedef enum {
+
+const std::string SIZE_LOWER_ZERO = "Size < 0";
+const std::string SIZE_ZERO = "Size = 0";
+const std::string INVALID_PARAM = "Invalid param";
+const std::string INDEX_OUT_OF_RANGE = "Index out of range";
+const std::string EMPTY_ELEMENT = "Empty element";
+
+
+/*typedef enum {
     Empty_list,
     Invalid_args,
     Invalid_param,
@@ -25,10 +33,7 @@ class IndexError{
     };
 
 public:
-    void printError(){
-        std::cout << text[(int) error] << std::endl;
-    };
     IndexError(Code er) : error(er) {};
-};
+};*/
 
 #endif

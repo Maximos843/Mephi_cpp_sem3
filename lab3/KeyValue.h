@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 
+
 template <typename V, typename K>
 struct KeyValue{
 	V value = 0;
