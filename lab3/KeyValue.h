@@ -13,11 +13,11 @@ struct KeyValue{
 		return key;
 	}
 
-	bool operator>(KeyValuePair<V, K>& p2){
+	bool operator>(KeyValue<V, K>& p2){
 		return this->key > p2.key;
 	}
 
-	bool operator<(KeyValuePair<V,K>& p2){
+	bool operator<(KeyValue<V,K>& p2){
 		return this->key < p2.key;
 	}
 };

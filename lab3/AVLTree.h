@@ -347,14 +347,14 @@ public:
 
 template <typename T>
 bool operator<(const T& p1,const T& p2) {
-	if (typeid(T).name() == typeid(KeyValuePair<std::string*,int>).name())
+	if (typeid(T).name() == typeid(KeyValue<std::string*, int>).name())
 		return p1.key < p2.key;
 	else
 		return p1 < p2;
 }
 template <typename T>
 bool operator>(const T& p1, const T& p2) {
-	if (typeid(T).name() == typeid(KeyValuePair<std::string*,int>).name())
+	if (typeid(T).name() == typeid(KeyValue<std::string*, int>).name())
 		return p1.key > p2.key;
 	else
 		return p1 > p2;
@@ -362,7 +362,7 @@ bool operator>(const T& p1, const T& p2) {
 
 template <typename T>
 bool operator==(const T& p1, const T& p2) {
-	if (typeid(T).name() == typeid(KeyValuePair<std::string*,int>).name())
+	if (typeid(T).name() == typeid(KeyValue<std::string*, int>).name())
 		return (p1.key == p2.key) && (p1.value == p2.value);
 	else
 		return p1 == p2;
