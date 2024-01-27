@@ -120,11 +120,14 @@ public:
 	}
 
     bool IsEqual(T* data, int length) {
-		if (this->length != length) return false;
-
-		for (int i = 0; i < this->length; i++)
-			if (this->Get(i) != data[i]) return false;
-
+		if (this->length != length){
+            return false;
+        }
+		for (int i = 0; i < this->length; i++){
+			if (this->Get(i) != data[i]){
+                return false;
+            }
+        }
 		return true;
 	}
 };

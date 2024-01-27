@@ -262,7 +262,7 @@ public:
 		if (node != nullptr){
 			try{
 				if (func(node->GetData(), a) == param){
-				return node->GetData();
+					return node->GetData();
 				}
 				if (param < 0){
 					return Find(node->ptr_left, func, a, param);

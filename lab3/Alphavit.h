@@ -105,7 +105,7 @@ public:
 		return pages;
 	}
 
-	int getCapacity() {
+	int GetCapacity() {
 		return wordcapacity;
 	}
 
