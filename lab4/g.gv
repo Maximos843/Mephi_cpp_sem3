@@ -1,0 +1,13 @@
+digraph G {
+	a	b	c	d	e	f	z
+	a->b[dir=none,label="4",weight="4",color="red"];
+	a->c[dir=none,label="6",weight="6"];
+	a->z[dir=none,label="33",weight="33"];
+	b->c[dir=none,label="1",weight="1",color="red"];
+	c->d[dir=none,label="2",weight="2",color="red"];
+	c->e[dir=none,label="10",weight="10"];
+	d->e[dir=none,label="4",weight="4",color="red"];
+	e->f[dir=none,label="3",weight="3",color="red"];
+	e->z[dir=none,label="8",weight="8"];
+	f->z[dir=none,label="2",weight="2",color="red"];
+}
